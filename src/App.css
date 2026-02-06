@@ -1,38 +1,1017 @@
-.App {
+/* ================= RESET ================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+/* ================= CONTAINER ================= */
+.container {
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 20px;
+  color: white;
+  background: transparent !important;
+
+  /* background:
+    radial-gradient(circle at 20% 20%, rgba(255,120,150,0.35), transparent 40%),
+    radial-gradient(circle at 80% 30%, rgba(180,120,255,0.35), transparent 40%),
+    radial-gradient(circle at 50% 80%, rgba(255,180,200,0.3), transparent 45%),
+    linear-gradient(160deg, #0f0c29, #302b63, #24243e); */
+
+  background-size: 200% 200%;
+  animation: nightGradient 15s ease infinite;
+}
+
+@keyframes nightGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ================= PULSING HEART ================= */
+.pulse-heart {
+  position: absolute;
+  font-size: 18rem;
+  opacity: 0.08;
+  animation: heartPulse 3s infinite;
+  z-index: 0;
+}
+
+@keyframes heartPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+/* ================= SPARKLES ================= */
+.sparkles span {
+  position: absolute;
+  top: -10px;
+  font-size: 1.2rem;
+  opacity: 0.8;
+  animation: sparkleFall linear infinite;
+}
+
+.sparkles span:nth-child(odd) { animation-duration: 6s; }
+.sparkles span:nth-child(even) { animation-duration: 9s; }
+
+@keyframes sparkleFall {
+  from { transform: translateY(0); opacity: 1; }
+  to { transform: translateY(120vh); opacity: 0; }
+}
+
+/* ================= FLOATING HEARTS ================= */
+.hearts span {
+  position: absolute;
+  bottom: -20px;
+  font-size: 2rem;
+  animation: floatUp 7s linear infinite;
+}
+
+@keyframes floatUp {
+  from { transform: translateY(0); opacity: 1; }
+  to { transform: translateY(-120vh); opacity: 0; }
+}
+
+/* ================= CARD ================= */
+.card {
+  width: 100%;
+  max-width: 480px;
+  height: 560px;              /* FIXED HEIGHT */
+  perspective: 1200px;
+  position: relative;
+  z-index: 2;
+}
+
+/* ================= CARD SIDES ================= */
+.card-front,
+.card-back {
+  position: absolute;
+  inset: 0;
+
+  border-radius: 25px;
+  padding: 30px;
+
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(6px);
+
+  backface-visibility: hidden;
+  transition: transform 1s ease;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Front & Back rotation */
+.card-front { transform: rotateY(0deg); }
+.card-back  { transform: rotateY(180deg); }
+
+.card.flip .card-front { transform: rotateY(-180deg); }
+.card.flip .card-back  { transform: rotateY(0deg); }
+
+/* ================= IMAGE ================= */
+.photo {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  margin: 20px 0;
+
+  border-radius: 20px;
+  border: 4px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* ================= TEXT ================= */
+h1 {
+  font-size: 2.4rem;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+h2 {
+  margin-top: 15px;
+  font-size: 1.6rem;
+}
+
+p {
+  font-size: 1.1rem;
+  margin-top: 10px;
+}
+
+/* ================= COUNTDOWN ================= */
+.countdown {
+  margin: 15px 0;
+  font-size: 1.3rem;
+  font-weight: bold;
+
+  background: rgba(255,255,255,0.2);
+  padding: 10px 20px;
+  border-radius: 20px;
+}
+
+/* ================= BUTTONS ================= */
+.buttons {
+  margin-top: 20px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+button {
+  padding: 15px 30px;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+.yes {
+  background: white;
+  color: #ff4d6d;
+  font-weight: bold;
+}
+
+.no {
+  background: rgba(255,255,255,0.3);
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+/* ================= FINAL HEARTS ================= */
+.heart {
+  font-size: 3rem;
+  margin-top: 20px;
 }
 
-@keyframes App-logo-spin {
+/* ================= MOBILE SAFETY ================= */
+@media (max-width: 480px) {
+  .card {
+    height: 600px;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  .photo {
+    width: 180px;
+    height: 180px;
+  }
+}
+
+/* 🎁 Gifts */
+.gift-grid {
+  display: flex;
+  gap: 20px;
+  margin-top: 25px;
+}
+
+.gift-card {
+  width: 120px;
+  height: 140px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 20px;
+  cursor: pointer;
+  padding: 15px;
+  transition: transform 0.3s;
+}
+
+.gift-card:hover {
+  transform: scale(1.1);
+}
+
+.gift-emoji {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+/* 🪟 Modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal-content {
+  background: #1f1b3a;
+  padding: 25px;
+  border-radius: 20px;
+  max-width: 90%;
+  max-height: 90%;
+  overflow-y: auto;
+  color: white;
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+/* 📸 Collage */
+.collage {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.collage img,
+.ticket-img {
+  width: 100%;
+  border-radius: 15px;
+}
+
+/* 💌 Letter */
+.letter {
+  margin-top: 15px;
+  line-height: 1.6;
+  font-size: 1.1rem;
+}
+
+/* 🎀 Gift Animation */
+.gift-card {
+  width: 120px;
+  height: 150px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 20px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s;
+}
+
+.gift-card:hover {
+  transform: scale(1.08);
+}
+
+.gift-lid {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 40%;
+  background: rgba(255,255,255,0.25);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.4s;
+}
+
+.gift-card:hover .gift-lid {
+  transform: rotateX(60deg);
+}
+
+.gift-body {
+  margin-top: 50px;
+  text-align: center;
+}
+
+.gift-emoji {
+  font-size: 2.2rem;
+}
+
+/* 📸 Slideshow */
+.slideshow img {
+  width: 100%;
+  border-radius: 20px;
+  animation: fade 2.5s infinite;
+}
+
+@keyframes fade {
+  0% { opacity: 0.4; }
+  50% { opacity: 1; }
+  100% { opacity: 0.4; }
+}
+
+/* 📄 Letter Paper */
+.letter-paper {
+  background: #fdf6e3;
+  color: #333;
+  padding: 30px;
+  border-radius: 12px;
+  font-family: "Cursive", "Georgia";
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
+}
+
+/* 🎟 Ticket */
+.ticket {
+  display: flex;
+  background: white;
+  color: black;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.ticket-left {
+  padding: 20px;
+  border-right: 2px dashed #ccc;
+}
+
+.ticket-right img {
+  width: 120px;
+}
+
+/* ================= 🎁 GIFT GRID ================= */
+.gift-grid {
+  display: flex;
+  gap: 20px;
+  margin-top: 25px;
+  justify-content: center;
+}
+
+/* ================= 🎀 GIFT CARD ================= */
+.gift-card {
+  width: 130px;
+  height: 130px;
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 18px;
+  cursor: pointer;
+
+  position: relative;
+  overflow: hidden;
+
+  perspective: 800px; /* 🔥 REQUIRED for 3D */
+
+  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+  transition: transform 0.3s ease;
+}
+
+.gift-card:hover {
+  transform: translateY(-6px) scale(1.05);
+}
+
+/* 🎀 LID (FIXED) */
+.gift-lid {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100%;          /* ✅ FULL WIDTH */
+  height: 45px;         /* ✅ FIXED HEIGHT */
+
+  background: rgba(255,255,255,0.35);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transform-origin: top center;
+  transform: rotateX(0deg);
+  transition: transform 0.45s ease;
+
+  z-index: 2;
+}
+
+.gift-card:hover .gift-lid {
+  transform: rotateX(65deg); /* 🎀 Opens like a lid */
+}
+
+.bow {
+  font-size: 1.6rem;
+}
+
+/* 🎁 BODY */
+.gift-body {
+  position: absolute;
+  top: -5px;             /* ⬇ Below lid */
+  left: 0;
+
+  width: 100%;
+  height: calc(100% - 45px);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  padding: 10px;
+  text-align: center;
+}
+
+.gift-emoji {
+  font-size: 2.2rem;
+  margin-bottom: 6px;
+}
+
+.gift-body h3 {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+
+/* ================= 🪟 MODAL ================= */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 8, 25, 0.8);
+  backdrop-filter: blur(6px);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal-content {
+  background: #1e1a3c;
+  width: 90%;
+  max-width: 520px;
+  max-height: 85vh;
+
+  border-radius: 20px;
+  padding: 20px 20px 25px;
+  position: relative;
+
+  box-shadow: 0 25px 60px rgba(0,0,0,0.5);
+  display: flex;
+  flex-direction: column;
+}
+
+/* ❌ Close Button */
+.close-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+/* 📦 Modal Body (CONTENT FIX) */
+.modal-body {
+  margin-top: 30px;
+  overflow-y: auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 15px;
+}
+
+/* ================= 📸 SLIDESHOW ================= */
+.slideshow {
+  width: 100%;
+}
+
+.slideshow img {
+  width: 100%;
+  border-radius: 16px;
+  animation: fadeSlide 2.5s infinite;
+}
+
+@keyframes fadeSlide {
+  0% { opacity: 0.4; }
+  50% { opacity: 1; }
+  100% { opacity: 0.4; }
+}
+
+/* ================= 💌 LETTER ================= */
+.letter-paper {
+  width: 100%;
+  background: #fdf6e3;
+  color: #333;
+  padding: 25px;
+  border-radius: 12px;
+
+  font-family: "Georgia", "Times New Roman", cursive;
+  line-height: 1.7;
+  box-shadow: inset 0 0 12px rgba(0,0,0,0.2);
+}
+
+/* ================= 🎟 TICKET ================= */
+.ticket {
+  width: 100%;
+  display: flex;
+  background: #fff;
+  color: #000;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.ticket-left {
+  flex: 1;
+  padding: 18px;
+  border-right: 2px dashed #ccc;
+}
+
+.ticket-left h3 {
+  margin-bottom: 8px;
+}
+
+.ticket-right {
+  width: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ticket-right img {
+  width: 100%;
+}
+
+/* ================= 🌹 ROMANTIC BACKGROUND SLIDESHOW ================= */
+
+.romantic-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  overflow: hidden;
+}
+
+/* Each slide */
+.bg-image {
+  position: absolute;
+  inset: 0;
+
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center 20%;
+
+  opacity: 0;
+  transform: scale(1);
+
+transition:
+  opacity 3s ease,
+  transform 22s ease,
+  filter 0.8s ease;
+
+}
+
+/* Active slide */
+.bg-image.active {
+  opacity: 1;
+  transform: scale(1.03);
+}
+
+/* Overlay for readability */
+.bg-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(10, 8, 25, 0.45),
+    rgba(10, 8, 25, 0.75)
+  );
+}
+
+/* Blur only AFTER YES */
+.romantic-bg.blur .bg-image {
+  filter: blur(5px);
+  transform: scale(1.05);
+}
+
+
+/* ================= 📱 MOBILE PORTRAIT CROP FIX ================= */
+@media (max-width: 768px) {
+  .bg-image {
+    background-position: center 10%;
+  }
+}
+
+
+/* 🇮🇳 INDIA MEMORIES SECTION */
+.india-section {
+  margin-top: 40px;
+  text-align: center;
+}
+
+.india-section h2 {
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+}
+
+
+.india-map {
+  width: 100%;
+  opacity: 0.95;
+  filter: drop-shadow(0 12px 30px rgba(0,0,0,0.4));
+}
+
+
+
+/* Tooltip */
+.tooltip {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.7);
+  color: white;
+  padding: 4px 8px;
+  font-size: 0.75rem;
+  border-radius: 8px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+.map-pin:hover .tooltip {
+  opacity: 1;
+}
+
+/* Modal */
+.place-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.place-card {
+  background: #1e1a3c;
+  border-radius: 20px;
+  padding: 20px;
+  max-width: 300px;
+  text-align: center;
+  color: white;
+  animation: fadeUp 0.5s ease;
+}
+
+@keyframes fadeUp {
   from {
-    transform: rotate(0deg);
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
   }
   to {
-    transform: rotate(360deg);
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
+}
+
+.place-card img {
+  width: 100%;
+  border-radius: 15px;
+  margin-bottom: 12px;
+}
+
+.place-card h3 {
+  margin-bottom: 6px;
+}
+
+.place-card p {
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+
+/* 🌸 OPEN MAP BUTTON */
+.india-button-wrapper {
+  margin-top: 35px;
+  display: flex;
+  justify-content: center;
+}
+
+.india-open-btn {
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.3);
+  color: white;
+  padding: 14px 26px;
+  border-radius: 30px;
+  font-size: 1.05rem;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  transition: transform 0.3s, background 0.3s;
+}
+
+.india-open-btn:hover {
+  transform: scale(1.05);
+  background: rgba(255,255,255,0.25);
+}
+
+/* 🌍 MAP MODAL */
+.india-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 8, 25, 0.85);
+  backdrop-filter: blur(6px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.india-modal-content {
+  background: #1e1a3c;
+  border-radius: 22px;
+  padding: 25px 20px 30px;
+  width: 90%;
+  max-width: 460px;
+  max-height: 90vh;
+  overflow-y: auto;
+  color: white;
+  position: relative;
+  animation: fadeUp 0.4s ease;
+}
+
+/* ❌ Close */
+.india-close-btn {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+/* Map inside modal */
+.map-container {
+  position: relative;
+  margin-top: 20px;
+  width: 100%;
+  max-width: 520px;   /* ⬅ Bigger map */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+.map-pin {
+  position: absolute;
+  transform: translate(-50%, -100%);
+  width: 26px;
+  height: 26px;
+  background: radial-gradient(circle at 30% 30%, #ff9a9e, #ff4d6d);
+  border-radius: 50% 50% 50% 0;
+  transform: translate(-50%, -100%) rotate(-45deg);
+  cursor: pointer;
+  box-shadow: 0 0 12px rgba(255, 77, 109, 0.8);
+  animation: pinPulse 1.8s infinite;
+}
+
+.map-pin::after {
+  content: "❤";
+  position: absolute;
+  top: 4px;
+  left: 6px;
+  font-size: 12px;
+  color: white;
+  transform: rotate(45deg);
+}
+
+/* Pulse animation */
+@keyframes pinPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 77, 109, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 12px rgba(255, 77, 109, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 77, 109, 0);
+  }
+}
+
+
+/* Tooltip */
+.tooltip {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.7);
+  color: white;
+  padding: 4px 8px;
+  font-size: 0.75rem;
+  border-radius: 8px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.map-pin:hover .tooltip {
+  opacity: 1;
+}
+
+/* 📸 Place Preview (inside modal) */
+.place-preview {
+  margin-top: 20px;
+  text-align: center;
+  animation: fadeUp 0.4s ease;
+}
+
+.place-preview img {
+  width: 100%;
+  border-radius: 16px;
+  margin-bottom: 10px;
+}
+
+.place-preview p {
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+
+/* 🎬📸 Slideshow */
+.slideshow-wrapper {
+  width: 100%;
+  text-align: center;
+}
+
+.slideshow-frame {
+  position: relative;
+  width: 100%;
+  max-width: 360px;
+  margin: 0 auto;
+  aspect-ratio: 3 / 4; /* nice portrait frame */
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+  background: #000;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Soft fade animation */
+.fade {
+  animation: fadeIn 1.2s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(1.02);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.slideshow-hint {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  opacity: 0.85;
+}
+
+/* ✨ Our Firsts Timeline (Upgraded) */
+.our-firsts {
+  width: 100%;
+  text-align: center;
+}
+
+.our-firsts h2 {
+  margin-bottom: 5px;
+}
+
+.firsts-subtitle {
+  font-size: 0.95rem;
+  opacity: 0.85;
+  margin-bottom: 20px;
+}
+
+/* Timeline container */
+.timeline {
+  position: relative;
+  margin: 0 auto;
+  padding-left: 24px;
+  max-width: 420px;
+}
+
+/* Vertical line */
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 12px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 120, 150, 0.9),
+    rgba(255, 120, 150, 0.25)
+  );
+}
+
+/* Each item */
+.timeline-item {
+  position: relative;
+  display: flex;
+  gap: 14px;
+  margin-bottom: 22px;
+  animation: fadeUp 0.45s ease both;
+}
+
+/* Dot with emoji */
+.timeline-dot {
+  width: 26px;
+  height: 26px;
+  background: radial-gradient(circle at 30% 30%, #ff9a9e, #ff4d6d);
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(255, 77, 109, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+.dot-emoji {
+  font-size: 0.9rem;
+}
+
+/* Content card */
+.timeline-content {
+  background: rgba(255, 255, 255, 0.12);
+  padding: 12px 14px;
+  border-radius: 14px;
+  text-align: left;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+
+.timeline-content h3 {
+  font-size: 1rem;
+  margin-bottom: 2px;
+}
+
+.timeline-date {
+  font-size: 0.75rem;
+  opacity: 0.7;
+}
+
+.timeline-content p {
+  font-size: 0.9rem;
+  margin-top: 6px;
+  line-height: 1.4;
+}
+
+/* 🌱 Ending line */
+.timeline-ending {
+  margin-top: 10px;
+  font-size: 1rem;
+  opacity: 0.9;
+  animation: fadeUp 0.6s ease both;
 }
