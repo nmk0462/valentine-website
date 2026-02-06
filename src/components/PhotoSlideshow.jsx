@@ -4,7 +4,6 @@ import video1 from "../assets/slideshow/video.mp4";
 import video2 from "../assets/slideshow/video2.mp4";
 import photo1 from "../assets/slideshow/p1.jpg";
 import photo2 from "../assets/slideshow/p2.jpg";
-import photo3 from "../assets/slideshow/p1.jpg";
 
 const slides = [
   { type: "image", src: photo2 },

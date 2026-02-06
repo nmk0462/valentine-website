@@ -31,20 +31,21 @@ export default function OurFirsts() {
   const [visibleCount, setVisibleCount] = useState(0);
 
   // Animate items appearing one by one
-  useEffect(() => {
-    setVisibleCount(0);
-    const interval = setInterval(() => {
-      setVisibleCount((c) => {
-        if (c >= firsts.length) {
-          clearInterval(interval);
-          return c;
-        }
-        return c + 1;
-      });
-    }, 450); // speed of reveal
+useEffect(() => {
+  setVisibleCount(0);
+  const interval = setInterval(() => {
+    setVisibleCount((c) => {
+      if (c >= firsts.length) {
+        clearInterval(interval);
+        return c;
+      }
+      return c + 1;
+    });
+  }, 450);
 
-    return () => clearInterval(interval);
-  }, []);
+  return () => clearInterval(interval);
+}, [firsts.length]);
+
 
   return (
     <div className="our-firsts">
